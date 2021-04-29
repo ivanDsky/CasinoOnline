@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CasinoOnline</string>
+    <string name="facebook_app_id">482523963192070</string>
+    <string name="fb_login_protocol_scheme">9d807732b3ec462996082739affd216b</string>
+</resources>
