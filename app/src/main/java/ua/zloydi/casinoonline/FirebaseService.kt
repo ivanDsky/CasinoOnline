@@ -25,7 +25,6 @@ class FirebaseService : FirebaseMessagingService() {
         super.onMessageReceived(message)
 
         Log.d("Message","From: ${message.from}")
-        Log.d("Message","${message.toIntent().dataString}")
 
         val intent = Intent(this,MainActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -33,9 +32,12 @@ class FirebaseService : FirebaseMessagingService() {
 
         val pendingIntent = PendingIntent.getActivity(this,0,intent, FLAG_ONE_SHOT)
 
+        val title = if(message.notification == null) "Title" else message.notification?.title
+        val body = if(message.notification == null) "Body" else message.notification?.body
+
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(message.notification?.title)
-            .setContentText(message.notification?.body)
+            .setContentTitle(title)
+            .setContentText(body)
             .setSmallIcon(R.drawable.ic_fire)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

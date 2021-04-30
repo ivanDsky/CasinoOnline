@@ -1,5 +1,9 @@
 package ua.zloydi.casinoonline
 
+/**
+ * A helper class that, depending on the filters, will run all success or
+ * failed listeners
+ */
 class ApplicationBehaviour {
     private val filterList = arrayListOf<() -> Boolean>()
     private val successList = arrayListOf<() -> Unit>()
@@ -29,6 +33,7 @@ class ApplicationBehaviour {
 
     fun removeFailedListener(listener: () -> Unit) = removeListener(listener, failedList)
 
+    //Checks is all filters true or not
     private fun applyFilter(): Boolean {
         for (filter in filterList) {
             if (!filter.invoke()) return false
@@ -36,6 +41,7 @@ class ApplicationBehaviour {
         return true
     }
 
+    //Runs all listeners
     private fun onResult(list: ArrayList<() -> Unit>) {
         for (listener in list) {
             listener.invoke()
@@ -46,6 +52,7 @@ class ApplicationBehaviour {
 
     private fun onFailed() = onResult(failedList)
 
+    //Depending on filters run success or failed listeners
     fun update() {
         if(applyFilter()){
             onSuccess()
