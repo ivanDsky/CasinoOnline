@@ -2,12 +2,7 @@ package ua.zloydi.casinoonline
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import ua.zloyhr.casinoonline.R
 import ua.zloyhr.casinoonline.databinding.FragmentGameBinding
@@ -25,10 +20,11 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
     }
 
+    //Spins roulette on random value
     private fun spinRoulette() {
         val startValue = binding.ivRoulette.rotation
-        val endValue = startValue + Random.nextInt(3000,8000)
-        ObjectAnimator.ofFloat(binding.ivRoulette,"rotation",startValue,endValue).apply{
+        val endValue = startValue + Random.nextInt(3000, 8000)
+        ObjectAnimator.ofFloat(binding.ivRoulette, "rotation", startValue, endValue).apply {
             duration = 5000
             start()
         }
