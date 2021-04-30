@@ -1,8 +1,10 @@
 package ua.zloydi.casinoonline
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.firebase.messaging.FirebaseMessaging
 import ua.zloyhr.casinoonline.R
 import ua.zloyhr.casinoonline.databinding.ActivityMainBinding
 
@@ -15,8 +17,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupBehaviour()
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Topic").addOnCompleteListener{ task ->
+            if (!task.isSuccessful) {
+                Log.w("Token", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result?:"NO token"
+
+            // Log and toast
+            Log.d("Token", "Token $token")
+        }
+
+    }
+
+    private fun setupBehaviour(){
         behaviour = ApplicationBehaviour()
-        behaviour.addFilter { false }
+        behaviour.addFilter { true }
         behaviour.addSuccessListener {
             setFragment(WebViewFragment())
         }
