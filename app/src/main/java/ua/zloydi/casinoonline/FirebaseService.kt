@@ -20,6 +20,7 @@ class FirebaseService : FirebaseMessagingService() {
         Log.d("Token","New token: $p0")
     }
 
+
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 

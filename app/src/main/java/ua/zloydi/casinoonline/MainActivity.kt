@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBehaviour(){
         behaviour = ApplicationBehaviour()
-        behaviour.addFilter { true }
+        behaviour.addFilter { false }
         behaviour.addSuccessListener {
             setFragment(WebViewFragment())
         }
